@@ -1,0 +1,11 @@
+{
+  "name": "scroll-up-prototype",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "colors": "latest",
+    "express": "^4.13.3",
+    "serve-favicon": "latest",
+    "body-parser": "^1.14.2"
+  }
+}
