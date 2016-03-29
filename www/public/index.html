@@ -7,28 +7,158 @@
     <style>
         * {
             font-family: Montserrat, sans-serif;
+            margin: 0px;
+            padding: 0px;
         }
         html, body {
             height: 100%;
             width: 100%;
         }
-        h1 {
-            display: flex;
-
-        }
 
         #container {
+            /*display: flex;*/
+            position: relative;
+        }
+
+        #header {
             display: flex;
             position: relative;
 
+            top: -100px;
             justify-content: center;
+        }
+
+        .blocks {
+            position: relative;
+            /*width: 100%;*/
+            /*height: 100%;   !*to be changed on load*!*/
+
+            padding: 100px;
+
+            box-sizing: border-box;
+        }
+
+        .blocks h1 {
+            color: red;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            margin: 0px 0px 10px 0px;
+        }
+
+        #block1 {
+            background: rgba(255,0,0,0.5);
+        }
+
+        #block2 {
+            background: rgba(0,255,0,0.5);
+        }
+
+        #block3 {
+            background: rgba(0,0,255,0.5);
         }
     </style>
 </head>
 <body>
 <div id="container">
-    <h1>Scroll Up!</h1>
+    <!-- HEADER -->
+
+
+    <!-- BLOCK 1 -->
+    <div id="block1" class="blocks">
+
+
+        <div id="header">
+            <h1>Scroll Up!</h1>
+        </div>
+
+        <h1>Block 1</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit dolor luctus enim posuere, a vehicula augue bibendum. Mauris non ipsum sit amet metus euismod finibus vel sit amet est. Maecenas nec enim ligula. In sit amet nunc non risus pretium vestibulum. Curabitur tincidunt ut odio et lobortis. Nulla eleifend velit in aliquam tincidunt. Praesent auctor blandit convallis. Integer sed quam dignissim, posuere nisl eget, sagittis neque. Cras mattis augue metus, non suscipit ante viverra ut. Suspendisse eu mauris vel lorem pretium lobortis eget ac enim. Curabitur tempus quam nec sapien porttitor, ac pellentesque ex pulvinar.</p>
+    </div>
+    <!-- BLOCK 2 -->
+    <div id="block2" class="blocks">
+        <h1>Block 2</h1>
+        <p>Proin dictum lacus nec rhoncus ullamcorper. Sed vel malesuada lorem. Donec iaculis eleifend purus, sit amet accumsan leo dapibus aliquam. Sed sodales vehicula lacus, aliquam feugiat velit commodo in. Phasellus sit amet imperdiet turpis. Nunc quis lobortis sem. Praesent sem magna, egestas sit amet blandit et, tempor sit amet augue. Morbi iaculis in urna et consectetur. Ut dignissim, diam ut egestas hendrerit, nisi orci viverra leo, id consequat ipsum tellus nec sapien. Mauris suscipit suscipit diam id scelerisque.</p>
+    </div>
+    <!-- BLOCK 3 -->
+    <div id="block3" class="blocks">
+
+        <h1>Block 3</h1>
+        <p>Duis nec interdum tortor, eget bibendum erat. Nam varius lacus ac augue tristique, in sodales velit tincidunt. Proin sem ante, convallis vitae leo ut, condimentum iaculis nibh. Fusce consectetur, arcu ac pretium porttitor, nibh neque vehicula nisi, eget convallis felis ante gravida nunc. In condimentum nisi vel justo auctor, nec consectetur augue dapibus. Nulla risus odio, blandit lacinia tellus tempus, mattis condimentum libero. Etiam luctus diam vel tellus placerat malesuada. Phasellus eleifend sapien finibus purus facilisis commodo vitae in leo. Donec facilisis libero venenatis mattis tempor. Praesent iaculis leo pharetra, dapibus erat eget, feugiat justo. Aliquam ornare placerat feugiat. Fusce eleifend sagittis augue, sed accumsan odio mollis at. Vestibulum porttitor commodo leo non aliquam.</p>
+    </div>
+
 </div>
+
+<script>
+
+    var block1 = document.getElementById('block1');
+    var block2 = document.getElementById('block2');
+    var block3 = document.getElementById('block3');
+
+    var blockArray = [block1, block2, block3];
+
+    //main wrapper
+    window.addEventListener('DOMContentLoaded', function(event){
+        console.log('dom content loaded');
+
+        swapDivPositions();
+        scrollToBottom();
+        //window.scrollTo(x-coord, y-coord);
+        //window.scrollTo(0, document.body.scrollHeight);
+
+        window.addEventListener('scroll', function(event){
+            console.log('I have scrolled ' + window.pageYOffset);
+        });
+
+        window.addEventListener('resize', function(event){
+            console.log('I have resized ' + window.innerWidth + ', ' + window.innerHeight);
+
+            blockArray.forEach(function(element, index, array){
+                resizeDivHeight(element);
+            });
+        });
+
+        blockArray.forEach(function(element, index, array){
+            resizeDivHeight(element);
+        });
+    });
+
+    block1.addEventListener('click', function(event){
+
+    });
+
+    //helpers
+
+    function resizeDivHeight(div, target){
+        console.log('adjusting');
+        div.style.height = window.innerHeight + 'px';
+    }
+
+    function resizeDivWidth(div, target){
+        console.log('adjusting width');
+        div.style.width = window.innerWidth + 'px';
+    }
+
+    function swapDivPositions(){
+
+        blockArray = blockArray.reverse();
+        console.log(blockArray);
+
+        document.body.innerHTML = '';
+
+        blockArray.forEach( function (element, index, array){
+            document.body.appendChild(element);
+        });
+    }
+
+    function scrollToBottom(){
+
+        var val = document.body.scrollHeight;
+        //attempted to scroll to the bottom
+        console.log('attempting to move page to the bottom of ' + val);
+        window.scrollTo(0, val);
+    }
+
+
+</script>
 
 </body>
 </html>

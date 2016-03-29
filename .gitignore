@@ -1,3 +1,5 @@
+.DS_store
+
 .idea/
 www/node_modules/
 www/server-log.txt
