@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Upload</title>
+    <title>scroll!</title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
     <style>
         * {
             font-family: Montserrat, sans-serif;
-            margin: 0px;
-            padding: 0px;
+            margin: 0;
+            padding: 0;
         }
         html, body {
             height: 100%;
@@ -39,8 +40,8 @@
         }
 
         .blocks h1 {
-            color: red;
-            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            color: rgba(240,240,240,1.0);
+            text-shadow: 1px 1px 1px rgba(0,0,0,1);
             margin: 0px 0px 10px 0px;
         }
 
@@ -96,39 +97,41 @@
     var blockArray = [block1, block2, block3];
 
     //main wrapper
-    window.addEventListener('DOMContentLoaded', function(event){
-        console.log('dom content loaded');
+    window.addEventListener('load', function(event){
+        console.log('page loaded');
 
         swapDivPositions();
-        scrollToBottom();
-        //window.scrollTo(x-coord, y-coord);
-        //window.scrollTo(0, document.body.scrollHeight);
+        //scrollToBottom();
 
-        window.addEventListener('scroll', function(event){
-            console.log('I have scrolled ' + window.pageYOffset);
-        });
-
-        window.addEventListener('resize', function(event){
-            console.log('I have resized ' + window.innerWidth + ', ' + window.innerHeight);
-
-            blockArray.forEach(function(element, index, array){
-                resizeDivHeight(element);
-            });
-        });
+//        window.addEventListener('scroll', function(event){
+//            console.log('I have scrolled ' + window.pageYOffset);
+//        });
+//
+//        window.addEventListener('resize', function(event){
+//            console.log('I have resized ' + window.innerWidth + ', ' + window.innerHeight);
+//
+//            blockArray.forEach(function(element, index, array){
+//                resizeDivHeight(element);
+//            });
+//        });
 
         blockArray.forEach(function(element, index, array){
             resizeDivHeight(element);
         });
     });
 
-    block1.addEventListener('click', function(event){
+    // == CLICK TO REVEAL ==
+    document.addEventListener('click', function(event){
+        console.log(event.type + ' fired on ' + this);
 
+        event.target.scrollIntoView();
     });
+
 
     //helpers
 
     function resizeDivHeight(div, target){
-        console.log('adjusting');
+        console.log('adjusting height');
         div.style.height = window.innerHeight + 'px';
     }
 
@@ -137,6 +140,9 @@
         div.style.width = window.innerWidth + 'px';
     }
 
+    /**
+     * Reverses the div order.
+     */
     function swapDivPositions(){
 
         blockArray = blockArray.reverse();
@@ -149,12 +155,24 @@
         });
     }
 
+    /**
+     * Scroll to the bottom.
+     */
     function scrollToBottom(){
+        var val = 10000;
+        //var val = document.body.scrollHeight;
 
-        var val = document.body.scrollHeight;
         //attempted to scroll to the bottom
         console.log('attempting to move page to the bottom of ' + val);
-        window.scrollTo(0, val);
+        window.scroll(0, val);
+    }
+
+    /**
+     * Jump to div ID.
+     * @param divId Div to jump to.
+     */
+    function jumpToDiv(divId){
+        window.location.hash = '#' + divId;
     }
 
 
